@@ -1,8 +1,8 @@
-#BesturingsSystemen
+# BesturingsSystemen
 
-###Les Uno
-####Commando's deel 1
-####Touch, comm & diff
+### Les Uno
+#### Commando's deel 1
+#### Touch, comm & diff
 **touch** - the easiest way to create new, empty files. It is also used to change the timestamps
 **comm** - compare two sorted files line by line
 **diff** - find differences between two files
@@ -25,7 +25,7 @@
 		-u[#]	 alternatieve representatie voor -c
 		-y [-–suppress-common-lines] uitvoer in 2 kolommen
 
-####ls, cp, mv & rm
+#### ls, cp, mv & rm
 **ls** - list directory contents
  **cp** - copy files and directories
  **mv** - move (rename) files
@@ -52,7 +52,7 @@
 		-r	recursief
 		-a	recursief + laat alle attributen intact
 
-####Shuf, paste, wc
+#### Shuf, paste, wc
 **shuf** - generate random permutations
 **paste** - merge lines of files
 
@@ -71,7 +71,7 @@
 
 
 
-####Voorbeelden  deel 1
+#### Voorbeelden  deel 1
 
 
 	//Show files met details
@@ -125,8 +125,8 @@
 	diff -wBy --suppress-common-lines file1 file2 
 
 
-####Commando's deel 2
-####sha224sum
+#### Commando's deel 2
+#### sha224sum
 **sha224sum** - compute and check SHA224 message digest
 
 	sha224sum [OPTION] [FILE]
@@ -135,7 +135,7 @@
        --tag  create a BSD-style checksum
        -t     read in text mode (default)
 
-####split, join
+#### split, join
 **split** - split a file into pieces
 **join** - join lines of two files on a common field
 
@@ -155,7 +155,7 @@
 	        tot lijnen zonder overeenkomst
 
 
-####locate, find
+#### locate, find
 **locate** - list files in databases that match a pattern
 
 	locate [-i] [-b] [-r] 
@@ -168,7 +168,7 @@
 		-L	volg symbolische links
 		-H	volg nooit symbolische links tenzij....
 
-####xargs
+#### xargs
 **xargs** - build and execute command lines from standard input
 
 	xargs [-I ...] [-p|t] [-n#] ...
@@ -180,7 +180,7 @@
 
 
 
-####Voorbeelden  deel 2
+#### Voorbeelden  deel 2
 	//Bereken checksum op basis van inhoud voor elke file in current map, save result in bestand t
 	sha224sum ?? > t 
 	
@@ -237,9 +237,9 @@
 	*The moreau way* //Efficiente manier 
 	find /usr/share -name "*TODO*" -size +10k -mtime -200 -printf "wc %p\n" | bash 
 
-####Commando's deel 3
+#### Commando's deel 3
 
-####cat, tac & rev
+#### cat, tac & rev
 **cat** - concatenate files and print on the standard output
 **tac** - concatenate and print files in reverse
 **rev** - reverse lines characterwise
@@ -257,7 +257,7 @@
 		-rs	reguliere expressie als scheiding
 	
 
-####sort
+#### sort
 **sort** - sort lines of text files
 
 	sort [-t...] [-k...] [-f] [-n] [-r] [-o...] [-C] ...
@@ -270,7 +270,7 @@
 		-c|C	controleert of invoer gesorteerd is, al
 		     dan niet met vermelding eerste fout
 
-####wc
+#### wc
 **wc** - print newline, word, and byte counts for each file
 	
 	wc [-c] [-w] [-l] [-L] ...
@@ -280,7 +280,7 @@
 		-L	toont lengte van de langste lijn
 
 
-####Voorbeelden  deel 3
+#### Voorbeelden  deel 3
 
 	#Twee bestanden joinen
 	//Eerst sorteren
@@ -326,7 +326,7 @@
 	wc -L file1 file2
 
 
-####Opmerkingen
+#### Opmerkingen
 - verschil change en modify: modify is inhoud veranderd (checksum verandert ), change attributen veranderen checksum zelfde
 - Gebruik nooit zelfde bestand als invoer en uitvoer bv sort < w > w mag niet
 
