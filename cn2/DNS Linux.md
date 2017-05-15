@@ -33,7 +33,6 @@ De figuur in bijlage zoals in labo
     	allow-update { none; };
     };
 
-<p style="page-break-after:always;"></p>
 **XX.us.zone**
                                 
     ; Append XX.us after every relative domain
