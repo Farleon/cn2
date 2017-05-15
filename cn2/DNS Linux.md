@@ -2,9 +2,7 @@
 De figuur in bijlage zoals in labo
 
 ## Stel het configuratiebestand en alle zonebestanden op van volgende DNS servers, waarbij je er rekening moet mee houden dat elk van deze servers ook secundaire nameserver is voor alle zones van de andere server: ... . Gebruik relatieve DNS namen waar mogelijk. Gebruik noch forwarders, noch de $ORIGIN opdracht !
-
 **named.conf**
-
     options {
     	directory "/var/named";
     	forwardeers { ip-adressen };
@@ -32,7 +30,6 @@ De figuur in bijlage zoals in labo
     	file "XX.us.zone";
     	allow-update { none; };
     };
-
 **XX.us.zone**
                                 
     ; Append XX.us after every relative domain
