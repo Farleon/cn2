@@ -1,5 +1,5 @@
 # Reeks B - Configuratie van DNS servers onder Linux
-De figuur in bijlage stelt een intranet bestaand uit een aantal Linux computers voor, met corresponderend IP-adres, van de vorm 192.168.16.z . Het getal z lees je af links van de naam van de computer. De getallen rechts van de naam van de computer moet je negeren. De computers staan gegroepeerd in een tabel met als header de naam van het domein waarin ze zich bevinden. De rechthoeken die domeinen groeperen stellen dan weer een zone voor. Stippellijnen duiden op een domein/subdomein relatie. De pijlen laten toe om de primaire nameserver van elke zone te achterhalen. Je hoeft geen reverse DNS te configureren.
+De figuur in bijlage zoals in labo
 
 ## Stel het configuratiebestand en alle zonebestanden op van volgende DNS servers, waarbij je er rekening moet mee houden dat elk van deze servers ook secundaire nameserver is voor alle zones van de andere server: ... . Gebruik relatieve DNS namen waar mogelijk. Gebruik noch forwarders, noch de $ORIGIN opdracht !
 
@@ -7,20 +7,9 @@ De figuur in bijlage stelt een intranet bestaand uit een aantal Linux computers 
 
     options {
     	directory "/var/named";
-    	dump-file "/var/named/data/cache_dump.db";
-            statistics-file "/var/named/data/named_stats.txt";
-            memstatistics-file "data/named_mem_stats.txt";
+    	forwardeers { ip-adressen };
     };
     
-    logging
-    {
-            channel default_debug {
-                    syslog daemon;
-                    severity dynamic;
-            };
-    };
-    
-
 	zone "." IN{
 		type hint;
 		file "named.ca";
@@ -43,13 +32,6 @@ De figuur in bijlage stelt een intranet bestaand uit een aantal Linux computers 
     	file "XX.us.zone";
     	allow-update { none; };
     };
-    
-    controls {
-    	inet * allow { localhost; 192.168.16/24; } keys { rndckey; };
-    };
-    
-    include "/etc/rndc.key";
-    include "/etc/named.rfc1912.zones";
 
 <p style="page-break-after:always;"></p>
 **XX.us.zone**
@@ -62,19 +44,19 @@ De figuur in bijlage stelt een intranet bestaand uit een aantal Linux computers 
                       1            ; retry
                       1            ; expire
                       1 )          ; minimum
-    ;
-         IN    NS    corelli.sonatas.XVII.it.                       ; Authoritative Name Server
+    
+                            IN  NS  corelli.sonatas.XVII.it. ; Authoritative Name Server
     ; Delegations
-    vocal				          IN  NS	gershwin.vocal   ; vocal.xx.us. is controlled by gershwin.vocal.xx.us.
-    ;
-    corelli.sonatas.XVII.it	    IN  A     192.168.16.126     ; IP of name server
-    gershwin.vocal              IN  A     192.168.16.132     ; A-record for gershwin.vocal.xx.us (IP name server vocal.xx.us subdomain)
-    barber				        IN  A 	192.168.16.4         ; A-record barber.xx.us
-    bernstein 			        IN  A 	192.168.16.17        ; A-record bernstein.xx.us
-    cage				        IN  A 	192.168.16.58        ; A-record cage.xx.us
-    copland				        IN  A 	192.168.16.73        ; A-record copland.xx.us
-    glass				        IN  A 	192.168.16.99        ; A-record glass.xx.us
-    carter.orchestral 		    IN  A 	192.168.16.64        ; A-record 
+    vocal                   IN  NS	gershwin.vocal  ; vocal.xx.us. is controlled by gershwin.vocal.xx.us.
+  
+    corelli.sonatas.XVII.it IN  A   192.168.16.126  ; IP of name server
+    gershwin.vocal          IN  A   192.168.16.132  ; A-record for gershwin.vocal.xx.us (IP name server vocal.xx.us subdomain)
+    barber                  IN  A 	192.168.16.4    ; A-record barber.xx.us
+    bernstein               IN  A 	192.168.16.17   ; A-record bernstein.xx.us
+    cage                    IN  A 	192.168.16.58   ; A-record cage.xx.us
+    copland                 IN  A 	192.168.16.73   ; A-record copland.xx.us
+    glass                   IN  A 	192.168.16.99   ; A-record glass.xx.us
+    carter.orchestral       IN  A 	192.168.16.64   ; A-record 
 
 
 **XIX.it.zone**
@@ -90,11 +72,11 @@ De figuur in bijlage stelt een intranet bestaand uit een aantal Linux computers 
     ;
          IN    NS    corelli.sonatas.XVII.it.     ; Authoritative Name Server
     ; delegations
-    opera	    IN  NS   fresbdi.XVII.it.   ; opera.XIX.it is controlled by fresb.XVII.it.
-    ;
-    corelli.sonatas.XVII.it	   IN  A    192.168.16.126        
-    frescobaldi.XVII.it.       IN  A    192.168.16.131        
-    ponchielli	               IN  A	192.168.16.197        
+    opera	IN  NS   fresbdi.XVII.it.   ; opera.XIX.it is controlled by fresb.XVII.it.
+    
+    corelli.sonatas.XVII.it     IN  A    192.168.16.126        
+    frescobaldi.XVII.it.        IN  A    192.168.16.131        
+    ponchielli                  IN  A	192.168.16.197        
 
 **oratoria.XVII.it.zone**
              

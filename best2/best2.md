@@ -321,3 +321,35 @@ pkill - will send the specified signal (by default SIGTERM) to each process inst
 	> s naar uivoer
 	2 > /dev/null & iets van errors
 
+	(rm f; x=0; while((++x)) ; do  y = ($(factor $x)) ; ((${#y[@]}==2)) && echo $x >> p; sleep 0.5; ((x%10)) || read; done)
+
+	//alle jobs zien
+	jobs -l 
+	
+	//jobNr uit van blokkeren naar actief, in dit geval blijft dit programma gestopt omdat hij op input vraagt door de 'read'
+	bg %1 
+	
+	//jobNr naar foreground halen, indien er maar 1 proces in achtergrond is volstaat 'fg %' of zelfs '%'
+	fg %1 
+	
+	//jobNr killen
+	kill % 
+
+	//invoerkanaal wordt afgesloten dor 0<&-, 
+	//de plaats van 0,&- is belangrijk, door hem bij de done te zetten zorgt hij voor de hele while lus
+	//2>/dev/null zorgt ervoor dat foutuitvoerkanaal naar vuilbak gaat
+	(rm f; x=0; while((++x)) ; do  y = ($(factor $x)) ; ((${#y[@]}==2)) && echo $x >> p; sleep 0.5; ((x%10)) || read; done 0<&- 2>/dev/null ) 
+	
+
+	//door exec wordt vanaf nu  voor elke lijn
+	//het invoerkanaal  omgeleid tot de exec wordt ongedaan gemaakt
+	(rm f; exec 0<&- ; x=0; while((++x)) ; do  y = ($(factor $x)) ; ((${#y[@]}==2)) && echo $x >> p; sleep 0.5; ((x%10)) || read; done 2>/dev/null ) 
+	
+	//blijf de laatste lijnen updaten, geen momentopname dus maar constant herlezen
+	tail -F p 
+
+	//lees p uit, wait tot een van de jobs van status verandert
+	wait -n ; tail p 
+	
+	//als job wordt gekilled zal de wait dit merken en zal tail uitprinten
+	kill -9 jobID 
